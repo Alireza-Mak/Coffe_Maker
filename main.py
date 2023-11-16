@@ -11,7 +11,7 @@ while not turn_off:
     elif user_input == LIST_OF_ACTIONS[4]:
         report()
     elif user_input in LIST_OF_ACTIONS:
-        coffe_processor(user_input)
+        turn_off = not coffe_processor(user_input)
 
 
 

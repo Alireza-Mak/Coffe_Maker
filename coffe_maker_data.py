@@ -4,7 +4,7 @@ MENU = {
             "water": 50,
             "coffee": 18,
         },
-        "cost": 1.5,
+        "cost": 3.5,
     },
     "latte": {
         "ingredients": {
@@ -12,7 +12,7 @@ MENU = {
             "milk": 150,
             "coffee": 24,
         },
-        "cost": 2.5,
+        "cost": 5.5,
     },
     "cappuccino": {
         "ingredients": {
@@ -20,7 +20,7 @@ MENU = {
             "milk": 100,
             "coffee": 24,
         },
-        "cost": 3.0,
+        "cost": 4.24,
     }
 }
 
@@ -28,7 +28,8 @@ resources = {
     "water": 300,
     "milk": 200,
     "coffee": 100,
-    "money": 0
 }
 
-LIST_OF_ACTIONS = ["OFF", "ESPRESSO", "LATTE", "CAPPUCCINO", "REPORT"]
+COINS = {"quarters": 0.25, "dimes": 0.10, "nickles": 0.05, "pennies": 0.01, "loonie": 1, "toonie": 2}
+
+LIST_OF_ACTIONS = ["off", "espresso", "latte", "cappuccino", "report"]
