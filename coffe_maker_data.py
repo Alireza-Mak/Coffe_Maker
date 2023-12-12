@@ -28,8 +28,10 @@ resources = {
     "water": 300,
     "milk": 200,
     "coffee": 100,
+    "money": 0
 }
+UNITS = {"water": "ml", "milk": "ml", "money": "$", "coffee": "g"}
 
-COINS = {"quarters": 0.25, "dimes": 0.10, "nickles": 0.05, "pennies": 0.01, "loonie": 1, "toonie": 2}
+COINS = {"quarters": 0.25, "dimes": 0.10, "nickles": 0.05, "loonie": 1}
 
 LIST_OF_ACTIONS = ["off", "espresso", "latte", "cappuccino", "report"]

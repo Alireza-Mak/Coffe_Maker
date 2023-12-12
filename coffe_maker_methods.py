@@ -1,7 +1,23 @@
-from coffe_maker_data import resources, MENU, COINS
+from coffe_maker_data import resources, MENU, COINS, UNITS
 
 
-# TODO 1. Create a method by name of auto_correcting to make ready input for number or string
+# TODO 1. Create a method by name of menu to show items of coffe maker
+def menu():
+    message = "What would you like?( "
+    count = 1
+    for item in MENU:
+        cost = str(MENU[item]["cost"])
+        message += item.title() + " " + cost
+        if count != len(MENU):
+            message += "$ /"
+        else:
+            message += "$ ): "
+        count += 1
+    return message
+
+
+# TODO 2. Create a method by name of auto_correcting to make ready input for number or string
+
 def auto_correcting(message, actions_list):
     user_in = input(message)
     try:
@@ -13,20 +29,26 @@ def auto_correcting(message, actions_list):
         return user_in.lower()
 
 
-# TODO 2. Create a method by name of report to report the user or admin
+# TODO 3. Create a method by name of report to report the user or admin
 def report():
     for key in resources:
-        print(f"{key}: {resources[key]}")
+        unit = ""
+        for item in UNITS:
+            if item == key:
+                unit = UNITS[item]
+        print(f"{key.title()}: {resources[key]}{unit}")
 
 
-# TODO 4. Create a method by name of check_resources to make sure all ingredient are enough
-def check_resources(coffe):
+# TODO 5. Create a method by name of check_resources to make sure all ingredient are enough
+def check_resources(coffee):
     counter = 0
     low_ingredient = ''
     for ingredient in resources:
-        if resources[ingredient] < MENU[coffe]["ingredients"][ingredient]:
-            counter += 1
-            low_ingredient += ingredient + " and "
+        if ingredient in MENU[coffee]["ingredients"]:
+            if resources[ingredient] < MENU[coffee]["ingredients"][ingredient]:
+                counter += 1
+                low_ingredient += ingredient + " and "
+
     if counter != 0:
         low_ingredient = low_ingredient[0:-5]
         if counter == 1:
@@ -38,16 +60,17 @@ def check_resources(coffe):
         return True
 
 
-# TODO 3. Create a method by name of coffe_processor to create coffe
-def coffe_processor(coffe):
+# TODO 4. Create a method by name of coffe_processor to create coffe
+def coffee_processor(coffe):
     turnoff_coffe_maker = check_resources(coffe)
-    process_coins(coffe)
+    if turnoff_coffe_maker:
+        process_coins(coffe)
     return turnoff_coffe_maker
 
 
-# TODO 5. Create a method by name of process_coins to get the user money and offer change for extra money or less money
+# TODO 6. Create a method by name of process_coins to get the user money and offer change for extra money or less money
 def process_coins(coffe):
-    print("Please insert coins.")
+    print(f'It costs {MENU[coffe]["cost"]}$, please insert coins.')
     user_money = 0
     for currency in COINS:
         currencies = input(f"How many {currency}? ")
@@ -58,12 +81,18 @@ def process_coins(coffe):
         print("Sorry that's not enough money. Money refunded.")
         return False
     else:
+        update_resources(coffe)
         remain_money = user_money - MENU[coffe]["cost"]
         print(f"Here is ${remain_money} in change.") if remain_money != 0 else None
         print(f"Here is your {coffe} ☕️. Enjoy!")
         return True
 
 
-# TODO 6. Create a method by name of update_ingredients to calculate all ingredients and money
-# def update_ingredients(coffe):
-
+# TODO 7. Create a method by name of update_resources to calculate all ingredients and money
+def update_resources(selected_coffe):
+    coffe = MENU[selected_coffe]["ingredients"]
+    for item in resources:
+        if item in coffe:
+            resources[item] = resources[item] - coffe[item]
+    coffe_cost = MENU[selected_coffe]["cost"]
+    resources["money"] += coffe_cost
